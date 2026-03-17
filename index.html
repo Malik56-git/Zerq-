@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZERQ STORE | Elegance Perfectly Crafted</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2a3a; /* Deep Navy */
+            --accent: #c5a059;  /* Gold */
+            --bg: #fdfdfd;
+            --text: #333;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* Header */
+        header { background: var(--white); padding: 2rem 1rem; text-align: center; border-bottom: 3px solid var(--accent); position: sticky; top: 0; z-index: 100; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); letter-spacing: 2px; }
+        header p { color: var(--accent); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+
+        /* Filter */
+        .filter-container { display: flex; justify-content: center; gap: 10px; padding: 1.5rem; overflow-x: auto; }
+        .filter-btn { padding: 8px 20px; border: 1px solid var(--primary); background: none; border-radius: 25px; cursor: pointer; transition: 0.3s; white-space: nowrap; }
+        .filter-btn.active { background: var(--primary); color: var(--white); }
+
+        /* Product Grid */
+        .container { max-width: 1100px; margin: auto; padding: 1rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+
+        .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; height: 2.5rem; overflow: hidden; }
+        .card-desc { font-size: 0.75rem; color: #777; margin-bottom: 10px; line-height: 1.2; }
+        .card-price { font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+        .add-btn { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: background 0.2s; }
+        .add-btn:active { transform: scale(0.95); }
+
+        /* Floating Elements */
+        .cart-icon { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .cart-badge { position: absolute; top: 0; right: 0; background: var(--accent); color: var(--primary); width: 22px; height: 22px; border-radius: 50%; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+        
+        .wa-btn { position: fixed; bottom: 90px; right: 25px; background: #25D366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999; }
+
+        /* Modal */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 95%; max-width: 500px; max-height: 90vh; border-radius: 15px; padding: 20px; overflow-y: auto; position: relative; }
+        .close { position: absolute; right: 20px; top: 15px; font-size: 1.5rem; cursor: pointer; }
+
+        .cart-item { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 50px; height: 50px; border-radius: 5px; }
+        .qty-btns { display: flex; align-items: center; gap: 10px; }
+        .qty-btns button { width: 25px; height: 25px; background: #eee; border: none; cursor: pointer; border-radius: 3px; }
+
+        /* Checkout Form */
+        .form-group { margin: 15px 0; }
+        .form-group label { display: block; font-size: 0.8rem; margin-bottom: 5px; font-weight: 600; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
+        .submit-order { width: 100%; padding: 15px; background: var(--accent); color: var(--primary); border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; margin-top: 10px; }
+
+        /* Responsiveness */
+        @media (min-width: 768px) {
+            .product-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ZERQ STORE</h1>
+    <p>Elegance perfectly crafted.</p>
+</header>
+
+<div class="filter-container">
+    <button class="filter-btn active" onclick="filterProducts('All', this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('Women Shoes', this)">Women Shoes</button>
+    <button class="filter-btn" onclick="filterProducts('Women Stylish', this)">Women Stylish</button>
+</div>
+
+<main class="container">
+    <div id="product-grid" class="product-grid">
+        </div>
+</main>
+
+<a href="https://wa.me/923106425528" class="wa-btn" target="_blank">
+    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+</a>
+
+<div class="cart-icon" onclick="openCart()">
+    <span class="cart-badge" id="cart-count">0</span>
+    <svg width="24" height="24" fill="white" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+</div>
+
+<div class="modal" id="cart-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeCart()">&times;</span>
+        <h2 style="margin-bottom:20px;">Your Cart</h2>
+        <div id="cart-items"></div>
+        <div style="margin-top:20px; text-align: right;">
+            <strong>Total: PKR <span id="cart-total">0</span></strong>
+        </div>
+        
+        <form id="checkout-form" action="https://formspree.io/f/https://formspree.io/f/myknbdnj" method="POST">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="customer_name" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label>Delivery Address</label>
+                <textarea name="address" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Special Instructions</label>
+                <textarea name="instructions" rows="2"></textarea>
+            </div>
+            
+            <input type="hidden" name="Order_Details" id="order-summary-input">
+            
+            <button type="submit" class="submit-order">Place Order via Email</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const products = [
+        {
+            id: 1,
+            name: "Women Rexine Semi-Formal Flats Mustard",
+            price: 1200,
+            cat: "Women Stylish",
+            img: "https://i.ibb.co/Mym7h4HD/mustard.jpg",
+            desc: "Perfect for everyday wear, premium quality Rexine."
+        },
+        {
+            id: 2,
+            name: "Women's Pink Beaded Stylish Flats",
+            price: 999,
+            cat: "Women Shoes",
+            img: "https://i.ibb.co/0yddxfC8/pink.jpg",
+            desc: "Lightweight and breathable design for all-day comfort."
+        },
+        {
+            id: 3,
+            name: "Silver Wedding Special Heels",
+            price: 2500,
+            cat: "Women Shoes",
+            img: "https://i.ibb.co/fzSX4n3D/silver.jpg",
+            desc: "Elegant silver finish for wedding and party wear."
+        },
+        {
+            id: 4,
+            name: "Black Classic Pumps",
+            price: 1800,
+            cat: "Women Stylish",
+            img: "https://i.ibb.co/TBTgv8TN/black.jpg",
+            desc: "Durable and sleek design for office or casual use."
+        },
+        {
+            id: 5,
+            name: "Golden Zari Khussa",
+            price: 1500,
+            cat: "Women Shoes",
+            img: "https://i.ibb.co/zWFPDYSp/khussa.jpg",
+            desc: "Traditional handmade khussa with golden zari work."
+        }
+        // Add 3-5 more items here similarly...
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('zerq_cart')) || [];
+
+    function renderProducts(filter = 'All') {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+        const items = filter === 'All' ? products : products.filter(p => p.cat === filter);
+        
+        items.forEach(p => {
+            grid.innerHTML += `
+                <div class="card">
+                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-desc">${p.desc}</div>
+                        <div class="card-price">PKR ${p.price}</div>
+                        <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function filterProducts(cat, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(cat);
+    }
+
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        const cartItem = cart.find(item => item.id === id);
+        
+        if (cartItem) {
+            cartItem.qty++;
+        } else {
+            cart.push({ ...product, qty: 1 });
+        }
+        updateCart();
+    }
+
+    function updateCart() {
+        localStorage.setItem('zerq_cart', JSON.stringify(cart));
+        const count = cart.reduce((acc, item) => acc + item.qty, 0);
+        document.getElementById('cart-count').innerText = count;
+        renderCartItems();
+    }
+
+    function renderCartItems() {
+        const container = document.getElementById('cart-items');
+        const summaryInput = document.getElementById('order-summary-input');
+        container.innerHTML = '';
+        let total = 0;
+        let summaryText = "";
+
+        cart.forEach((item, index) => {
+            total += item.price * item.qty;
+            summaryText += `${item.name} x ${item.qty} (PKR ${item.price * item.qty})\n`;
+            
+            container.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.img}" alt="thumb">
+                    <div style="flex-grow:1">
+                        <div style="font-size:0.8rem; font-weight:600">${item.name}</div>
+                        <div style="font-size:0.8rem">PKR ${item.price * item.qty}</div>
+                    </div>
+                    <div class="qty-btns">
+                        <button onclick="changeQty(${index}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)">+</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        document.getElementById('cart-total').innerText = total;
+        summaryInput.value = `--- NEW ORDER ---\n${summaryText}\nGRAND TOTAL: PKR ${total}`;
+    }
+
+    function changeQty(index, delta) {
+        cart[index].qty += delta;
+        if (cart[index].qty <= 0) cart.splice(index, 1);
+        updateCart();
+    }
+
+    function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
+    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+
+    // Handle Form Success
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            e.preventDefault();
+            return;
+        }
+        
+        // Formspree handles the submission. We just clear the cart after a delay.
+        setTimeout(() => {
+            alert("Order placed! Variety Shoes will contact you on WhatsApp to confirm.");
+            cart = [];
+            updateCart();
+            window.location.href = "https://wa.me/923106425528?text=Hello,%20I%20have%20just%20placed%20an%20order%20on%20ZERQ%20STORE.";
+        }, 1000);
+    });
+
+    // Init
+    renderProducts();
+    updateCart();
+</script>
+
+</body>
+</html>
