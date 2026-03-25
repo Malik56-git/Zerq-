@@ -3,547 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZERQ STORE | Elegance Perfectly Crafted</title>
+    <title>ZERQ | Private Collection</title>
     
     <link rel="icon" type="image/png" href="https://i.ibb.co/JWCSmD6P/zer-logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --soft-pink: #fff5f7;
-            --glass-pink: rgba(255, 240, 245, 0.7);
-            --hot-pink: #ff85a2;
-            --deep-pink: #d81b60;
-            --gold: #d4af37;
+            --luxury-black: #1a1a1a;
+            --luxury-gold: #c5a059;
+            --bg-cream: #faf9f6;
             --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.4);
-            --shadow: 0 10px 40px rgba(255, 133, 162, 0.2);
+            --border: #e5e5e5;
+            --text-muted: #666;
         }
-
-        /* Smooth Scroll & Selection */
-        html { scroll-behavior: smooth; }
-        ::selection { background: var(--hot-pink); color: white; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            font-family: 'Montserrat', sans-serif; 
-            background: linear-gradient(135deg, #fff5f7 0%, #fce4ec 100%);
-            color: #444; 
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-cream);
+            color: var(--luxury-black); 
+            line-height: 1.6;
         }
 
-        /* Typography Override */
-        h1, h2, h3, .card-title, .filter-btn {
-            font-family: 'Bodoni Moda', serif !important;
+        /* Typography */
+        h1, h2, .card-title {
+            font-family: 'Bodoni Moda', serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* Glossy Header */
+        /* Header Navigation */
         header { 
-            background: var(--glass-pink);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 2rem 1rem;
+            background: var(--white);
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.5);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
         
         .logo-img {
-            width: 90px;
-            margin-bottom: 0.8rem;
-            animation: fadeInDown 1s ease;
+            width: 60px;
+            filter: grayscale(1);
+            margin-bottom: 15px;
         }
 
-        header h1 { 
-            font-size: 2.8rem; 
-            color: var(--deep-pink); 
-            letter-spacing: -1px;
-            margin-bottom: 0.2rem;
-        }
-        
+        header h1 { font-size: 2.2rem; margin-bottom: 5px; }
         header p { 
-            font-size: 0.75rem; 
-            color: var(--hot-pink); 
+            font-size: 0.7rem; 
             text-transform: uppercase; 
-            letter-spacing: 4px;
-            font-weight: 600;
+            letter-spacing: 5px; 
+            color: var(--luxury-gold);
         }
 
-        /* Floating Category Bar */
+        /* Minimalist Filter */
         .filter-container { 
             display: flex; 
             justify-content: center; 
-            gap: 15px; 
-            padding: 2.5rem 1rem; 
-            overflow-x: auto;
+            gap: 30px; 
+            padding: 40px 20px;
         }
         
         .filter-btn { 
-            padding: 12px 28px; 
-            border: 1px solid rgba(255, 255, 255, 0.5); 
-            background: var(--glass); 
-            backdrop-filter: blur(5px);
-            color: var(--deep-pink);
-            border-radius: 50px; 
+            background: none;
+            border: none;
+            color: var(--text-muted);
             cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: var(--shadow);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            transition: 0.3s;
+            border-bottom: 1px solid transparent;
         }
         
         .filter-btn.active { 
-            background: var(--hot-pink); 
-            color: var(--white); 
-            transform: scale(1.1);
+            color: var(--luxury-black);
+            border-bottom: 1px solid var(--luxury-black);
         }
 
-        /* Product Cards with Animations */
-        .container { max-width: 1200px; margin: auto; padding: 1rem; }
+        /* Product Grid */
+        .container { max-width: 1300px; margin: auto; padding: 0 20px 100px; }
         .product-grid { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 25px; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 40px; 
         }
 
         .card { 
-            background: rgba(255, 255, 255, 0.6); 
-            border-radius: 25px; 
+            background: none;
             overflow: hidden; 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            box-shadow: var(--shadow); 
-            transition: all 0.4s ease;
-            animation: fadeInUp 0.8s ease backwards;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
-        .card:hover { 
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(255, 133, 162, 0.3);
-        }
-        
-        .card img { 
-            width: 100%; 
-            aspect-ratio: 1/1; 
-            object-fit: cover; 
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .card-body { padding: 20px; text-align: center; }
-        
-        .card-title { 
-            font-size: 1.2rem; 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            color: #333;
-        }
-        
-        .card-price { 
-            font-size: 1.2rem;
-            font-weight: 600; 
-            color: var(--hot-pink); 
-            margin-bottom: 18px; 
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .add-btn { 
-            background: linear-gradient(45deg, var(--hot-pink), var(--deep-pink));
-            color: white; 
-            border: none; 
-            padding: 14px; 
-            width: 100%;
-            border-radius: 50px; 
-            cursor: pointer; 
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        
-        .add-btn:hover {
-            filter: brightness(1.1);
-            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
-        }
-
-        /* Glossy Shopping Bag Icon */
-        .cart-icon { 
-            position: fixed; bottom: 30px; right: 25px; 
-            background: var(--white); color: var(--hot-pink); 
-            width: 70px; height: 70px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; z-index: 1000; 
-            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.4);
-            border: 2px solid var(--white);
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .cart-badge { 
-            position: absolute; top: 0; right: 0; 
-            background: var(--deep-pink); color: white; 
-            width: 26px; height: 26px; border-radius: 50%; 
-            font-size: 0.8rem; display: flex; align-items: center; justify-content: center; 
-            font-weight: bold;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Responsive */
-        @media (min-width: 768px) {
-            .product-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        /* Form Controls */
-        input, textarea {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--baby-pink);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 12px;
-            font-family: 'Montserrat', sans-serif;
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <img src="https://i.ibb.co/JWCSmD6P/zer-logo.png" alt="ZERQ Logo" class="logo-img">
-    <h1>ZERQ STORE</h1>
-    <p>Elegance Perfectly Crafted</p>
-</header>
-
-<div class="filter-container">
-    <button class="filter-btn active" onclick="filterProducts('All', this)">New Arrivals</button>
-    <button class="filter-btn" onclick="filterProducts('Women Shoes', this)">Shoes</button>
-</div>
-
-<main class="container">
-    <div id="product-grid" class="product-grid"></div>
-</main>
-
-<div class="cart-icon" onclick="openCart()">
-    <span class="cart-badge" id="cart-count">0</span>
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-</div>
-
-<div class="modal" id="cart-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(216, 27, 96, 0.1); backdrop-filter: blur(15px); display: none; z-index: 2000; justify-content: center; align-items: center;">
-    <div class="modal-content" style="background: white; width: 90%; max-width: 450px; border-radius: 35px; padding: 30px; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.12);">
-        <span onclick="closeCart()" style="position: absolute; right: 25px; top: 20px; font-size: 2rem; cursor: pointer; color: var(--hot-pink)">&times;</span>
-        <h2 style="font-size: 2rem; color: var(--deep-pink); margin-bottom: 25px;">Your Bag</h2>
-        <div id="cart-items" style="max-height: 300px; overflow-y: auto;"></div>
-        <div style="margin: 25px 0; text-align: right; font-size: 1.4rem;">
-            <strong>Total: <span id="cart-total" style="color: var(--hot-pink)">0</span> PKR</strong>
-        </div>
-        <form id="checkout-form" action="https://formspree.io/f/myknbdnj" method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="tel" name="phone" placeholder="WhatsApp Number" required>
-            <textarea name="address" placeholder="Delivery Address" rows="3" required></textarea>
-            <input type="hidden" name="Order_Details" id="order-summary-input">
-            <button type="submit" class="add-btn" style="font-size: 1rem; padding: 18px;">Place Order ✨</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    // New Products from your links
-    const products = [
-        { id: 1, name: "Pearl Rose Flats", price: 1450, cat: "Women Shoes", img: "https://i.ibb.co/VWpK53kW/1.jpg", desc: "Delicate pink pearls with soft cushioning." },
-        { id: 2, name: "Velvet Bloom Slides", price: 1200, cat: "Women Shoes", img: "https://i.ibb.co/3m1XrQth/2.jpg", desc: "Luxurious velvet finish for trendy girls." },
-        { id: 3, name: "Diamond Sparkle Heels", price: 2800, cat: "Women Shoes", img: "https://i.ibb.co/V0c8Y34v/3.jpg", desc: "Party ready diamond-crusted straps." },
-        { id: 4, name: "Blush Ribbon Sandals", price: 1650, cat: "Women Shoes", img: "https://i.ibb.co/pr6KbC6t/4.jpg", desc: "Chic ribbon tie-ups in baby pink." },
-        { id: 5, name: "Glow Glitter Pumps", price: 2200, cat: "Women Shoes", img: "https://i.ibb.co/Df5zHpS3/5.jpg", desc: "Add a touch of glitter to your walk." },
-        { id: 6, name: "Soft Petal Khussa", price: 1350, cat: "Women Shoes", img: "https://i.ibb.co/bgGHwshy/6.jpg", desc: "Traditional comfort with a modern pink twist." },
-        { id: 7, name: "Princess Bow Flats", price: 1550, cat: "Women Shoes", img: "https://i.ibb.co/TDDxSxNZ/7.jpg", desc: "Elegant oversized bow for a royal look." }
-    ];
-
-    let cart = JSON.parse(localStorage.getItem('zerq_cart')) || [];
-
-    function renderProducts(filter = 'All') {
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = '';
-        const items = filter === 'All' ? products : products.filter(p => p.cat === filter);
-        items.forEach((p, index) => {
-            grid.innerHTML += `
-                <div class="card" style="animation-delay: ${index * 0.1}s">
-                    <img src="${p.img}" alt="${p.name}" loading="lazy">
-                    <div class="card-body">
-                        <div class="card-title">${p.name}</div>
-                        <div class="card-price">${p.price} PKR</div>
-                        <button class="add-btn" onclick="addToCart(${p.id})">Add to Bag</button>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    function filterProducts(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderProducts(cat);
-    }
-
-    function addToCart(id) {
-        const p = products.find(x => x.id === id);
-        const exists = cart.find(x => x.id === id);
-        if(exists) exists.qty++; else cart.push({...p, qty: 1});
-        updateCart();
-        // Visual feedback
-        const icon = document.querySelector('.cart-icon');
-        icon.style.transform = 'scale(1.3)';
-        setTimeout(() => icon.style.transform = 'scale(1)', 200);
-    }
-
-    function updateCart() {
-        localStorage.setItem('zerq_cart', JSON.stringify(cart));
-        document.getElementById('cart-count').innerText = cart.reduce((a,b) => a + b.qty, 0);
-        renderCart();
-    }
-
-    function renderCart() {
-        const container = document.getElementById('cart-items');
-        let total = 0; let summary = "";
-        container.innerHTML = '';
-        cart.forEach((item, i) => {
-            total += item.price * item.qty;
-            summary += `${item.name} x${item.qty} (${item.price*item.qty} PKR)\n`;
-            container.innerHTML += `
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; background: #fff5f7; padding: 10px; border-radius: 20px;">
-                    <img src="${item.img}" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">
-                    <div style="flex-grow: 1">
-                        <div style="font-weight: bold; font-family: 'Bodoni Moda';">${item.name}</div>
-                        <div style="font-size: 0.8rem; color: var(--hot-pink)">${item.price} PKR</div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <button onclick="changeQty(${i},-1)" style="width:25px; height:25px; border:none; border-radius:50%; cursor:pointer">-</button>
-                        <span>${item.qty}</span>
-                        <button onclick="changeQty(${i},1)" style="width:25px; height:25px; border:none; border-radius:50%; cursor:pointer">+</button>
-                    </div>
-                </div>`;
-        });
-        document.getElementById('cart-total').innerText = total;
-        document.getElementById('order-summary-input').value = summary + "Total: PKR " + total;
-    }
-
-    function changeQty(index, d) {
-        cart[index].qty += d;
-        if(cart[index].qty <= 0) cart.splice(index, 1);
-        updateCart();
-    }
-
-    function openCart() { document.getElementById('cart-modal').style.display='flex'; }
-    function closeCart() { document.getElementById('cart-modal').style.display='none'; }
-
-    renderProducts();
-    updateCart();
-</script>
-
-</body>
-</html>            font-weight: 600;
-        }
-
-        /* Filter Buttons */
-        .filter-container { 
-            display: flex; 
-            justify-content: center; 
-            gap: 12px; 
-            padding: 2rem 1rem; 
-            overflow-x: auto;
-        }
-        .filter-btn { 
-            padding: 10px 25px; 
-            border: 2px solid var(--baby-pink); 
-            background: var(--white); 
-            color: var(--hot-pink);
-            border-radius: 30px; 
-            cursor: pointer; 
-            transition: all 0.4s ease;
-            font-weight: 600;
-            font-size: 0.85rem;
-            box-shadow: var(--shadow);
-        }
-        .filter-btn.active, .filter-btn:hover { 
-            background: var(--hot-pink); 
-            color: var(--white); 
-            border-color: var(--hot-pink);
-            transform: translateY(-3px);
-        }
-
-        /* Product Cards */
-        .container { max-width: 1200px; margin: auto; padding: 1rem; }
-        .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; 
-        }
-
-        .card { 
-            background: var(--white); 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: var(--shadow); 
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
         .card:hover { transform: translateY(-5px); }
         
+        .img-container {
+            background: #f0f0f0;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
         .card img { 
             width: 100%; 
-            aspect-ratio: 1/1; 
+            aspect-ratio: 3/4; 
             object-fit: cover; 
-            transition: transform 0.5s ease;
+            display: block;
+            filter: saturate(0.9);
+            transition: 0.6s;
         }
+
         .card:hover img { transform: scale(1.05); }
 
-        .card-body { padding: 15px; text-align: center; }
-        .card-title { 
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem; 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            color: var(--deep-pink);
-        }
-        .card-desc { font-size: 0.75rem; color: #888; margin-bottom: 12px; height: 32px; overflow: hidden; }
-        .card-price { 
-            font-size: 1.1rem;
-            font-weight: 700; 
-            color: var(--hot-pink); 
-            margin-bottom: 15px; 
-        }
+        .card-body { text-align: left; padding: 10px 0; }
+        .card-title { font-size: 1.1rem; margin-bottom: 5px; color: var(--luxury-black); }
+        .card-price { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; margin-bottom: 15px; }
         
         .add-btn { 
-            background: linear-gradient(135deg, var(--hot-pink), var(--deep-pink));
-            color: white; 
+            background: var(--luxury-black);
+            color: var(--white); 
             border: none; 
             padding: 12px; 
             width: 100%;
-            border-radius: 12px; 
             cursor: pointer; 
-            font-weight: 600;
-            transition: opacity 0.3s;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.4s;
         }
+        
+        .add-btn:hover { background: var(--luxury-gold); }
 
-        /* Floating Cart & WA */
+        /* Floating Elements */
         .cart-icon { 
-            position: fixed; bottom: 30px; right: 25px; 
-            background: var(--white); color: var(--hot-pink); 
-            width: 65px; height: 65px; border-radius: 50%; 
+            position: fixed; bottom: 40px; right: 40px; 
+            background: var(--luxury-black); color: white; 
+            width: 60px; height: 60px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; z-index: 1000; box-shadow: 0 10px 25px rgba(240, 98, 146, 0.3);
-            border: 2px solid var(--baby-pink);
-        }
-        .cart-badge { 
-            position: absolute; top: -5px; right: -5px; 
-            background: var(--deep-pink); color: white; 
-            width: 24px; height: 24px; border-radius: 50%; 
-            font-size: 0.75rem; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
-        .wa-btn { 
-            position: fixed; bottom: 110px; right: 32px; 
-            background: #25D366; color: white; width: 50px; height: 50px; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            text-decoration: none; box-shadow: var(--shadow); z-index: 999; 
+        .cart-badge { 
+            position: absolute; top: 12px; right: 12px; 
+            background: var(--luxury-gold); color: white; 
+            width: 18px; height: 18px; border-radius: 50%; 
+            font-size: 0.6rem; display: flex; align-items: center; justify-content: center; 
         }
 
-        /* Cart Modal Aesthetic */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(173, 20, 87, 0.2); backdrop-filter: blur(8px); display: none; z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: var(--white); width: 90%; max-width: 450px; border-radius: 25px; padding: 25px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .close { position: absolute; right: 25px; top: 20px; font-size: 1.5rem; color: var(--deep-pink); cursor: pointer; }
-        
-        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; background: var(--soft-pink); padding: 10px; border-radius: 15px; }
-        .cart-item img { width: 60px; height: 60px; border-radius: 10px; }
-        
-        .qty-btns button { 
-            width: 30px; height: 30px; border-radius: 50%; border: none; 
-            background: var(--white); color: var(--hot-pink); font-weight: bold; cursor: pointer;
+        /* Modal */
+        .modal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); 
+            display: none; z-index: 2000; justify-content: flex-end; 
         }
+        .modal-content { 
+            background: var(--white); width: 100%; max-width: 400px; height: 100%;
+            padding: 40px; position: relative; animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
         input, textarea { 
-            background: var(--soft-pink); border: 1px solid var(--baby-pink); 
-            padding: 12px; border-radius: 10px; margin-bottom: 10px;
+            width: 100%; border: none; border-bottom: 1px solid var(--border); 
+            padding: 15px 0; margin-bottom: 20px; font-family: inherit; outline: none;
         }
+        input:focus { border-bottom-color: var(--luxury-gold); }
 
         .submit-order { 
-            background: var(--deep-pink); color: white; padding: 18px; 
-            border-radius: 15px; font-size: 1.1rem; border: none; width: 100%; font-weight: 700;
-            cursor: pointer; margin-top: 15px;
+            background: var(--luxury-black); color: white; padding: 20px; 
+            border: none; width: 100%; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
         }
 
-        @media (min-width: 768px) {
-            .product-grid { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .filter-container { gap: 15px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="https://i.ibb.co/JWCSmD6P/zer-logo.png" alt="ZERQ Logo" class="logo-img">
-    <h1>ZERQ STORE</h1>
-    <p>Elegance perfectly crafted.</p>
+    <img src="https://i.ibb.co/JWCSmD6P/zer-logo.png" alt="ZERQ" class="logo-img">
+    <h1>ZERQ</h1>
+    <p>The Art of Footwear</p>
 </header>
 
 <div class="filter-container">
-    <button class="filter-btn active" onclick="filterProducts('All', this)">All Collections</button>
-    <button class="filter-btn" onclick="filterProducts('Women Shoes', this)">Trendy Shoes</button>
-    <button class="filter-btn" onclick="filterProducts('Women Stylish', this)">Chic Styles</button>
+    <button class="filter-btn active" onclick="filterProducts('All', this)">Collection</button>
+    <button class="filter-btn" onclick="filterProducts('Women Shoes', this)">Shoes</button>
+    <button class="filter-btn" onclick="filterProducts('Women Stylish', this)">Boutique</button>
 </div>
 
 <main class="container">
     <div id="product-grid" class="product-grid"></div>
 </main>
 
-<a href="https://wa.me/923106425528" class="wa-btn" target="_blank">
-    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-</a>
-
 <div class="cart-icon" onclick="openCart()">
     <span class="cart-badge" id="cart-count">0</span>
-    <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/></svg>
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/></svg>
 </div>
 
 <div class="modal" id="cart-modal">
     <div class="modal-content">
-        <span class="close" onclick="closeCart()">&times;</span>
-        <h2 style="font-family:'Playfair Display'; color:var(--deep-pink); margin-bottom:20px;">Shopping Bag</h2>
+        <span onclick="closeCart()" style="cursor:pointer; float:right">CLOSE</span>
+        <h2 style="margin: 40px 0 20px;">Your Bag</h2>
         <div id="cart-items"></div>
-        <div style="margin: 20px 0; text-align: right; font-size: 1.2rem;">
-            <strong style="color:var(--deep-pink)">Total: PKR <span id="cart-total">0</span></strong>
+        <div style="margin: 30px 0; text-align: right; border-top: 1px solid #eee; padding-top: 20px;">
+            <p style="color: #888; font-size: 0.8rem;">TOTAL ESTIMATE</p>
+            <strong style="font-size: 1.4rem;">PKR <span id="cart-total">0</span></strong>
         </div>
         
         <form id="checkout-form" action="https://formspree.io/f/myknbdnj" method="POST">
-            <input type="text" name="name" placeholder="Your Pretty Name" required>
-            <input type="tel" name="phone" placeholder="WhatsApp Number" required>
-            <textarea name="address" placeholder="Delivery Address" rows="3" required></textarea>
+            <input type="text" name="name" placeholder="FULL NAME" required>
+            <input type="tel" name="phone" placeholder="WHATSAPP NUMBER" required>
+            <textarea name="address" placeholder="SHIPPING ADDRESS" rows="2" required></textarea>
             <input type="hidden" name="Order_Details" id="order-summary-input">
-            <button type="submit" class="submit-order">Checkout Now ✨</button>
+            <button type="submit" class="submit-order">Complete Order</button>
         </form>
     </div>
 </div>
 
 <script>
     const products = [
-        { id: 1, name: "Rexine Semi-Formal Flats", price: 1200, cat: "Women Stylish", img: "https://i.ibb.co/Mym7h4HD/mustard.jpg", desc: "Perfect for everyday wear, premium quality." },
-        { id: 2, name: "Pink Beaded Stylish Flats", price: 999, cat: "Women Shoes", img: "https://i.ibb.co/0yddxfC8/pink.jpg", desc: "Lightweight and breathable design." },
-        { id: 3, name: "Wedding Special Heels", price: 2500, cat: "Women Shoes", img: "https://i.ibb.co/fzSX4n3D/silver.jpg", desc: "Elegant silver finish for parties." },
-        { id: 4, name: "Black Classic Pumps", price: 1800, cat: "Women Stylish", img: "https://i.ibb.co/TBTgv8TN/black.jpg", desc: "Durable and sleek for office use." },
-        { id: 5, name: "Golden Zari Khussa", price: 1500, cat: "Women Shoes", img: "https://i.ibb.co/zWFPDYSp/khussa.jpg", desc: "Handmade traditional zari work." }
+        { id: 1, name: "Mustard Rexine Flats", price: 1200, cat: "Women Stylish", img: "https://i.ibb.co/Mym7h4HD/mustard.jpg" },
+        { id: 2, name: "Pink Beaded Flats", price: 999, cat: "Women Shoes", img: "https://i.ibb.co/0yddxfC8/pink.jpg" },
+        { id: 3, name: "Silver Wedding Heels", price: 2500, cat: "Women Shoes", img: "https://i.ibb.co/fzSX4n3D/silver.jpg" },
+        { id: 4, name: "Classic Black Pumps", price: 1800, cat: "Women Stylish", img: "https://i.ibb.co/TBTgv8TN/black.jpg" },
+        { id: 5, name: "Golden Zari Khussa", price: 1500, cat: "Women Shoes", img: "https://i.ibb.co/zWFPDYSp/khussa.jpg" }
     ];
 
     let cart = JSON.parse(localStorage.getItem('zerq_cart')) || [];
@@ -555,14 +244,13 @@
         items.forEach(p => {
             grid.innerHTML += `
                 <div class="card">
-                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    <div class="img-container"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
                     <div class="card-body">
                         <div class="card-title">${p.name}</div>
                         <div class="card-price">PKR ${p.price}</div>
                         <button class="add-btn" onclick="addToCart(${p.id})">Add to Bag</button>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
     }
 
@@ -593,17 +281,15 @@
             total += item.price * item.qty;
             summary += `${item.name} x${item.qty} (PKR ${item.price*item.qty})\n`;
             container.innerHTML += `
-                <div class="cart-item">
-                    <img src="${item.img}">
+                <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
+                    <img src="${item.img}" style="width:50px; height:65px; object-fit:cover;">
                     <div style="flex-grow:1">
-                        <div style="font-weight:600; color:var(--deep-pink)">${item.name}</div>
-                        <div style="font-size:0.8rem">PKR ${item.price}</div>
+                        <div style="font-size:0.8rem; text-transform:uppercase;">${item.name}</div>
+                        <div style="font-size:0.7rem; color:#888;">${item.qty} x PKR ${item.price}</div>
                     </div>
-                    <div class="qty-btns">
-                        <button onclick="changeQty(${i},-1)">-</button>
-                        <span style="margin:0 8px">${item.qty}</span>
-                        <button onclick="changeQty(${i},1)">+</button>
-                    </div>
+                    <button onclick="changeQty(${i},-1)" style="background:none; border:none; cursor:pointer;">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${i},1)" style="background:none; border:none; cursor:pointer;">+</button>
                 </div>`;
         });
         document.getElementById('cart-total').innerText = total;
@@ -619,220 +305,6 @@
     function openCart() { document.getElementById('cart-modal').style.display='flex'; }
     function closeCart() { document.getElementById('cart-modal').style.display='none'; }
 
-    document.getElementById('checkout-form').onsubmit = function() {
-        setTimeout(() => {
-            alert("Order placed! We will contact you on WhatsApp soon! ✨");
-            cart = []; updateCart();
-            window.location.href = "https://wa.me/923106425528?text=I%20just%20placed%20a%20new%20order%20on%20ZERQ%20Store!";
-        }, 500);
-    };
-
-    renderProducts();
-    updateCart();
-</script>
-
-</body>
-</html>    <button class="filter-btn" onclick="filterProducts('Women Shoes', this)">Women Shoes</button>
-    <button class="filter-btn" onclick="filterProducts('Women Stylish', this)">Women Stylish</button>
-</div>
-
-<main class="container">
-    <div id="product-grid" class="product-grid">
-        </div>
-</main>
-
-<a href="https://wa.me/923106425528" class="wa-btn" target="_blank">
-    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-</a>
-
-<div class="cart-icon" onclick="openCart()">
-    <span class="cart-badge" id="cart-count">0</span>
-    <svg width="24" height="24" fill="white" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
-</div>
-
-<div class="modal" id="cart-modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeCart()">&times;</span>
-        <h2 style="margin-bottom:20px;">Your Cart</h2>
-        <div id="cart-items"></div>
-        <div style="margin-top:20px; text-align: right;">
-            <strong>Total: PKR <span id="cart-total">0</span></strong>
-        </div>
-        
-                <form id="checkout-form" action="https://formspree.io/f/myknbdnj" method="POST">            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" name="customer_name" required>
-            </div>
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input type="tel" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label>Delivery Address</label>
-                <textarea name="address" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Special Instructions</label>
-                <textarea name="instructions" rows="2"></textarea>
-            </div>
-            
-            <input type="hidden" name="Order_Details" id="order-summary-input">
-            
-            <button type="submit" class="submit-order">Place Order via Email</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    const products = [
-        {
-            id: 1,
-            name: "Women Rexine Semi-Formal Flats Mustard",
-            price: 1200,
-            cat: "Women Stylish",
-            img: "https://i.ibb.co/Mym7h4HD/mustard.jpg",
-            desc: "Perfect for everyday wear, premium quality Rexine."
-        },
-        {
-            id: 2,
-            name: "Women's Pink Beaded Stylish Flats",
-            price: 999,
-            cat: "Women Shoes",
-            img: "https://i.ibb.co/0yddxfC8/pink.jpg",
-            desc: "Lightweight and breathable design for all-day comfort."
-        },
-        {
-            id: 3,
-            name: "Silver Wedding Special Heels",
-            price: 2500,
-            cat: "Women Shoes",
-            img: "https://i.ibb.co/fzSX4n3D/silver.jpg",
-            desc: "Elegant silver finish for wedding and party wear."
-        },
-        {
-            id: 4,
-            name: "Black Classic Pumps",
-            price: 1800,
-            cat: "Women Stylish",
-            img: "https://i.ibb.co/TBTgv8TN/black.jpg",
-            desc: "Durable and sleek design for office or casual use."
-        },
-        {
-            id: 5,
-            name: "Golden Zari Khussa",
-            price: 1500,
-            cat: "Women Shoes",
-            img: "https://i.ibb.co/zWFPDYSp/khussa.jpg",
-            desc: "Traditional handmade khussa with golden zari work."
-        }
-        // Add 3-5 more items here similarly...
-    ];
-
-    let cart = JSON.parse(localStorage.getItem('zerq_cart')) || [];
-
-    function renderProducts(filter = 'All') {
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = '';
-        const items = filter === 'All' ? products : products.filter(p => p.cat === filter);
-        
-        items.forEach(p => {
-            grid.innerHTML += `
-                <div class="card">
-                    <img src="${p.img}" alt="${p.name}" loading="lazy">
-                    <div class="card-body">
-                        <div class="card-title">${p.name}</div>
-                        <div class="card-desc">${p.desc}</div>
-                        <div class="card-price">PKR ${p.price}</div>
-                        <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    function filterProducts(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderProducts(cat);
-    }
-
-    function addToCart(id) {
-        const product = products.find(p => p.id === id);
-        const cartItem = cart.find(item => item.id === id);
-        
-        if (cartItem) {
-            cartItem.qty++;
-        } else {
-            cart.push({ ...product, qty: 1 });
-        }
-        updateCart();
-    }
-
-    function updateCart() {
-        localStorage.setItem('zerq_cart', JSON.stringify(cart));
-        const count = cart.reduce((acc, item) => acc + item.qty, 0);
-        document.getElementById('cart-count').innerText = count;
-        renderCartItems();
-    }
-
-    function renderCartItems() {
-        const container = document.getElementById('cart-items');
-        const summaryInput = document.getElementById('order-summary-input');
-        container.innerHTML = '';
-        let total = 0;
-        let summaryText = "";
-
-        cart.forEach((item, index) => {
-            total += item.price * item.qty;
-            summaryText += `${item.name} x ${item.qty} (PKR ${item.price * item.qty})\n`;
-            
-            container.innerHTML += `
-                <div class="cart-item">
-                    <img src="${item.img}" alt="thumb">
-                    <div style="flex-grow:1">
-                        <div style="font-size:0.8rem; font-weight:600">${item.name}</div>
-                        <div style="font-size:0.8rem">PKR ${item.price * item.qty}</div>
-                    </div>
-                    <div class="qty-btns">
-                        <button onclick="changeQty(${index}, -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button onclick="changeQty(${index}, 1)">+</button>
-                    </div>
-                </div>
-            `;
-        });
-
-        document.getElementById('cart-total').innerText = total;
-        summaryInput.value = `--- NEW ORDER ---\n${summaryText}\nGRAND TOTAL: PKR ${total}`;
-    }
-
-    function changeQty(index, delta) {
-        cart[index].qty += delta;
-        if (cart[index].qty <= 0) cart.splice(index, 1);
-        updateCart();
-    }
-
-    function openCart() { document.getElementById('cart-modal').style.display = 'flex'; }
-    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-
-    // Handle Form Success
-    document.getElementById('checkout-form').addEventListener('submit', function(e) {
-        if (cart.length === 0) {
-            alert("Your cart is empty!");
-            e.preventDefault();
-            return;
-        }
-        
-        // Formspree handles the submission. We just clear the cart after a delay.
-        setTimeout(() => {
-            alert("Order placed! Variety Shoes will contact you on WhatsApp to confirm.");
-            cart = [];
-            updateCart();
-            window.location.href = "https://wa.me/923106425528?text=Hello,%20I%20have%20just%20placed%20an%20order%20on%20ZERQ%20STORE.";
-        }, 1000);
-    });
-
-    // Init
     renderProducts();
     updateCart();
 </script>
